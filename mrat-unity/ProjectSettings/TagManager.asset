@@ -3,11 +3,7 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags:
-  - EventMarker
-  - HasColorableRenderer
-  - Backpack
-  - Item
+  tags: []
   layers:
   - Default
   - TransparentFX
@@ -17,7 +13,6 @@ TagManager:
   - UI
   - 
   - 
-  - EventMarkers
   - 
   - 
   - 
@@ -40,7 +35,8 @@ TagManager:
   - 
   - 
   - 
-  - Spatial Mapping
+  - 
+  - Spatial Awareness
   m_SortingLayers:
   - name: Default
     uniqueID: 0

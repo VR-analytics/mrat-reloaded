@@ -1,15 +1,16 @@
-# MRAT: The Mixed Reality Analytics Toolkit
+# MRAT-reloaded: The Mixed Reality Analytics Toolkit
 
-This repository contains code and examples described in detail in our CHI 2020 paper, **MRAT: _The Mixed Reality Toolkit_**.
+This repository is an extension of **MRAT: _The Mixed Reality Toolkit_** available at [https://github.com/mi2lab/mrat](https://github.com/mi2lab/mrat). 
 
-- The CHI 2020 paper is available in the [ACM Digital Library](https://dl.acm.org/doi/abs/10.1145/3313831.3376330).
+### Unity versions
+This update works with the latest versions of Unity and it has been tested on:
 
-- An author copy version of the paper can be found on [our web site](https://www.mi2lab.com/research/mrat/).
+- Unity 2020.3.36f1 (LTS)
+- Unity 2021.3.6f1 (LTS)
 
-## MRAT Unity Project
+### Devices
+ - Oculus 2
+ - Hololens 2
 
-See [mrat-unity](mrat-unity) for the Unity source code.
-
-## MRAT Server
-
-We can make the MRAT server available upon request. Please get in touch with nebeling@umich.edu.
+### Dependencies
+Developed with [Microsoft Mixed Reality Toolkit 2.7.3](https://github.com/microsoft/MixedRealityToolkit-Unity/releases/tag/v2.7.3)

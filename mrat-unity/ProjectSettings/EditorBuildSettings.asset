@@ -5,15 +5,15 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: Assets/MRAT-Crisis/mrat_crisis_indoor.unity
-    guid: 9e43960d72799884a8f32766e2cdc62c
-  - enabled: 0
-    path: Assets/mrat_citizen-kane_demo.unity
-    guid: 5c0367cb6308a08469cc159697077a33
-  - enabled: 0
-    path: Assets/mrat_eval.unity
-    guid: 1445580ab1a88a449b50881945a3cb84
   - enabled: 1
-    path: Assets/MRAT-Crisis/mrat_crisis_demo.unity
-    guid: 7a9eccea09643a3488473ded08ce2ca3
+    path: Assets/Sample.unity
+    guid: 7a89bc248b48985428c37d953d15d147
+  m_configObjects:
+    Unity.XR.Oculus.Settings: {fileID: 11400000, guid: bfa1182bd221b4ca89619141f66f1260,
+      type: 2}
+    Unity.XR.WindowsMR.Settings: {fileID: 11400000, guid: dc5a169419fa04987b057f65238cf3ba,
+      type: 2}
+    com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 1a4c68ca72a83449f938d669337cb305,
+      type: 2}
+    com.unity.xr.openxr.settings4: {fileID: 11400000, guid: b7145ab46c61d8245bbab87558bd0588,
+      type: 2}
