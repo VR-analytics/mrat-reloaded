@@ -1,6 +1,7 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT License.
 
+using System;
 using UnityEngine.Events;
 
 namespace Microsoft.MixedReality.Toolkit.Input
@@ -9,5 +10,8 @@ namespace Microsoft.MixedReality.Toolkit.Input
     /// Unity event for input action events. Contains the data of the input event that triggered the action.
     /// </summary>
     [System.Serializable]
-    public class InputActionUnityEvent : UnityEvent<BaseInputEventData> { }
+    public class InputActionUnityEvent : UnityEvent<BaseInputEventData>
+    {
+        
+    }
 }

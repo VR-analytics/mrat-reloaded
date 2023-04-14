@@ -226,7 +226,6 @@ namespace MRAT
         public void WriteToLog(string logrecord)
         {
             string path = Path.Combine(Application.persistentDataPath, logfilename);
-          //  Debug.Log(path);
             File.AppendAllText(path, logrecord+"\n", System.Text.Encoding.ASCII);
         }
 

@@ -11,6 +11,7 @@ namespace MRAT
     {
         public Vector3 Position;
         public Quaternion ObjectRotation;
+        public Vector3 Scale;
 		public string ObjectName;
 	    public int ObjectInstanceId;
 
@@ -24,6 +25,11 @@ namespace MRAT
             return ObjectRotation;
         }
 
+        public Vector3 GetVisualizationScale()
+        {
+            return Scale;
+        }
+
         public MratEventObjectUpdate(string message = "", MratEventTypes eventType = MratEventTypes.ObjectUpdate) : base(message, eventType)
 	    {
 	    }
@@ -33,6 +39,7 @@ namespace MRAT
 	    {
 		    Position = go.transform.position;
 		    ObjectRotation = go.transform.rotation;
+            Scale = go.transform.localScale;
 		    ObjectName = go.name;
 		    ObjectInstanceId = go.GetInstanceID();
 	    }

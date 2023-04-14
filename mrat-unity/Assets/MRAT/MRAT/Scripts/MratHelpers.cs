@@ -156,9 +156,13 @@ namespace MRAT
 
             if (cursorfound && cursor!=null)
             {
-                var component = cursor.GetComponent<AnimatedCursor>();
-                
-                return component;
+                AnimatedCursor component=null;
+                if (cursor.TryGetComponent<AnimatedCursor>(out component))
+                    //var component = cursor.GetComponent<AnimatedCursor>();
+
+                    return component;
+                else
+                    return null;
             }
             else
                 return null;

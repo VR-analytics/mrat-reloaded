@@ -299,7 +299,7 @@ namespace MRAT {
                 marker_controller.MratEvent = mratEvent;
                 marker_controller.SetText($"{mratEvent.TimeAtFrameBeginningSeconds:0.0}\n{mratEvent.EventType}");
                 marker_controller.SetRotation(node.obj.GetVisualizationRotation());
-
+                marker_controller.SetScale(node.obj.GetVisualizationScale());
                 marker_controller.SetColor(GetColor(node.obj));
 
                 return marker;

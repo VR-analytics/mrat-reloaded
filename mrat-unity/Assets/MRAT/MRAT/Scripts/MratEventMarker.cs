@@ -25,6 +25,11 @@ namespace MRAT
             mesh.transform.forward = rot*Vector3.up;
         }
 
+        public void SetScale(Vector3 scl)
+        {
+            mesh.transform.localScale = scl;
+        }
+
         public void SetText(string text)
         {
             label.text = text;

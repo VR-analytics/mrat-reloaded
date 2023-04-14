@@ -29,6 +29,7 @@
 		CustomStart,
 		CustomEnd,
         MarkerFound, // log as MratEventSimple in Vuforia/Scripts/DefaultTrackableEventHandler
-        MarkerLost // log as MratEventSimple in Vuforia/Scripts/DefaultTrackableEventHandler
+        MarkerLost, // log as MratEventSimple in Vuforia/Scripts/DefaultTrackableEventHandler
+        QuestionnaireSubmission // QQ new event
     }
 }

@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Microsoft.MixedReality.Toolkit;
@@ -36,32 +36,36 @@ namespace MRAT
         private GameObject _objectInFocus = null;
 
         public void Update()
+        {
+            if (LogFocusEvents)
             {
-            if(LogFocusEvents)
-            { 
-                var currentfocusobject = CoreServices.InputSystem.FocusProvider.GetFocusedObject(CoreServices.InputSystem.GazeProvider.GazePointer);
-            if (currentfocusobject != null)
-            {
-
-                if (_objectInFocus == null)
+                var eyeGazeProvider = CoreServices.InputSystem?.EyeGazeProvider;
+                if (eyeGazeProvider != null)
                 {
-//                    Debug.Log("EnterFocus" + currentfocusobject);
-                    OnFocusEnter(currentfocusobject);
-                }
-                else if (_objectInFocus.GetInstanceID() != currentfocusobject.GetInstanceID())
-                {
-//                    Debug.Log("ExitFocus" + _objectInFocus);
+                    var currentfocusobject = eyeGazeProvider.GazeTarget;
+                    if (currentfocusobject != null)
+                    {
+                        
+                        if (_objectInFocus == null)
+                        {
+                            //                    Debug.Log("EnterFocus" + currentfocusobject);
+                            OnFocusEnter(currentfocusobject);
+                        }
+                        else if (_objectInFocus.GetInstanceID() != currentfocusobject.GetInstanceID())
+                        {
+                            //                    Debug.Log("ExitFocus" + _objectInFocus);
 
-                    OnFocusExit(_objectInFocus);
-                    _objectInFocus = null;
+                            OnFocusExit(_objectInFocus);
+                            _objectInFocus = null;
+                        }
+                    }
+                    else if (_objectInFocus != null)
+                    {
+                        //                Debug.Log("ExitFocus" + _objectInFocus);
+                        OnFocusExit(_objectInFocus);
+                        _objectInFocus = null;
+                    }
                 }
-            }
-            else if(_objectInFocus!=null)
-            {
-//                Debug.Log("ExitFocus" + _objectInFocus);
-                OnFocusExit(_objectInFocus);
-                _objectInFocus = null;
-            }
             }
         }
         

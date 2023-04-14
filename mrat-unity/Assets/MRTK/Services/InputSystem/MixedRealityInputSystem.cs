@@ -357,7 +357,7 @@ namespace Microsoft.MixedReality.Toolkit.Input
                     GazeProvider.GazePointer.BaseCursor.Destroy();
                     DebugUtilities.LogVerbose("Application was playing, destroyed the gaze pointer's BaseCursor");
                 }
-
+                if(GazeProvider!=null)
                 UnityObjectExtensions.DestroyObject(GazeProvider as Component);
 
                 GazeProvider = null;

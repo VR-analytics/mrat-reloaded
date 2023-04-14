@@ -130,6 +130,7 @@ namespace MRAT {
                 marker_controller.MratEvent = mratEvent;
                 marker_controller.SetText($"{mratEvent.TimeAtFrameBeginningSeconds:0.0}\n{mratEvent.EventType}");
                 marker_controller.SetRotation(visEvent.GetVisualizationRotation());
+                marker_controller.SetScale(visEvent.GetVisualizationScale());
 
                 Color markerColor;
                 if (!ColorUtility.TryParseHtmlString(mratEvent.EventColor, out markerColor))

@@ -17,6 +17,7 @@ namespace MRAT
     public class MratEventStatusUpdate : MratEventSimple, IVisualizable
     {
         public Vector3 Position;
+        public Vector3 Scale;
         public Quaternion UserRotation;
         public Vector3 CursorPosition;
         public Quaternion CursorRotation;
@@ -28,6 +29,11 @@ namespace MRAT
 
         public Vector3 GetVisualizationPosition() {
             return Position;
+        }
+
+        public Vector3 GetVisualizationScale()
+        {
+            return Scale;
         }
 
         public Quaternion GetVisualizationRotation() {
@@ -45,13 +51,21 @@ namespace MRAT
 	    [SerializeField]
 	    private double MemoryUsedAverage;
 
-	    [SerializeField]
+        //New Extension QQ - begin
+        public string CurrentScenario;
+        [SerializeField]
+        private int DetectedTaggedObjectsCount;
+        [SerializeField]
+        private List<string> DetectedTaggedObjects = new List<string>(80);
+        //New Extension QQ - end
+
+        [SerializeField]
 	    private List<float> FpsReadings = new List<float>(80);
 
 	    [SerializeField]
 	    private List<long> MemoryReadings = new List<long>(80);
-
-	    public MratEventStatusUpdate(string message = "", MratEventTypes eventType = MratEventTypes.StatusUpdate) : base(message, eventType)
+        
+        public MratEventStatusUpdate(string message = "", MratEventTypes eventType = MratEventTypes.StatusUpdate) : base(message, eventType)
 	    {
 	    }
 
@@ -65,11 +79,14 @@ namespace MRAT
 
 		    Position = camera.transform.position;
 		    UserRotation = camera.transform.rotation;
-
-		    CursorPosition = cursor.Position;
-		    CursorRotation = cursor.Rotation;
-
-            var cursorTarget = CoreServices.InputSystem.GazeProvider.GazeTarget;
+            if (cursor != null)
+            {
+                CursorPosition = cursor.Position;
+                CursorRotation = cursor.Rotation;
+            }
+            GameObject cursorTarget=null;
+            if (CoreServices.InputSystem.GazeProvider != null)
+            cursorTarget = CoreServices.InputSystem.GazeProvider.GazeTarget;
 
 		    if (cursorTarget)
 		    {
@@ -120,7 +137,17 @@ namespace MRAT
 		    }
 	    }
 
-	    public MratEventStatusUpdate CreatePerformanceWarningEvent()
+        public void AddDetectedTaggedObjects(List<string> detectedTaggedObjects)
+        {
+            DetectedTaggedObjects.AddRange(detectedTaggedObjects);
+
+            if (detectedTaggedObjects.Count > 0)
+            {
+                DetectedTaggedObjectsCount = detectedTaggedObjects.Count();
+            }
+        }
+
+        public MratEventStatusUpdate CreatePerformanceWarningEvent()
 	    {
 			// HACK: This is a simple hack to create a separate performance warning event which is easy to visualize. Technically works.
 

@@ -19,6 +19,7 @@ GameObject:
   - component: {fileID: 114202593571580804}
   - component: {fileID: 114089344117875182}
   - component: {fileID: 3948330408610533616}
+  - component: {fileID: 2071482945}
   m_Layer: 0
   m_Name: MratManager
   m_TagString: Untagged
@@ -150,9 +151,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LocalLoggingOnly: 1
   LogGeneratedMessagesLocally: 0
-  SpeachOutputEnabled: 1
+  SpeachOutputEnabled: 0
   DisplayLocalLogging: 0
   DisplayLocalLoggingObject: {fileID: 0}
+  LogtoFile: 1
 --- !u!114 &114254460951137462
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -160,18 +162,18 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1227192223097436}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ff4787745b8258c47875f3d2fd49022c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ServerBaseUri: http://localhost:8081
-  ServerMessageUri: http://localhost:8081/mrat/insert
-  ServerPhotoOnlyUri: http://localhost:8081/mrat/saveScreenshot
-  ServerGetSessionIdsUri: http://localhost:8081/mrat/getSessionIds
-  ServerGetEventsByIdUri: http://localhost:8081/mrat/getEventsBySessionId
-  ServerInteractiveEndpoint: http://localhost:8081/mrat/getEventSelection
-  ServerInteractiveUpdated: http://localhost:8081/mrat/hasEventSelectionChanged
+  ServerBaseUri: http://127.0.0.1:8082/
+  ServerMessageUri: http://127.0.0.1:8082/mrat/insert
+  ServerPhotoOnlyUri: http://127.0.0.1:8082/mrat/saveScreenshot
+  ServerGetSessionIdsUri: http://127.0.0.1:8082/mrat/getSessionIds
+  ServerGetEventsByIdUri: http://127.0.0.1:8082/mrat/getEventsBySessionId
+  ServerInteractiveEndpoint: http://127.0.0.1:8082/mrat/getEventSelection
+  ServerInteractiveUpdated: http://127.0.0.1:8082/mrat/hasEventSelectionChanged
   User: user
   Token: abcd1234
   LogServerResponsesLocally: 0
@@ -189,9 +191,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a850e7ae295a4954191bae6ecc354ec8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LogClickEvents: 0
-  LogSourceEvents: 0
-  LogFocusEvents: 0
+  LogClickEvents: 1
+  LogSourceEvents: 1
+  LogFocusEvents: 1
   CaptureScreenshotOnClick: 0
   CapturePhotoToFileOnClick: 0
   SavePhotosToServer: 0
@@ -207,22 +209,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89855a8400d4d404ea04ea4fe0a034b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CaptureHolograms: 1
-  PhotoEventReceiver:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 114661099097696022}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: PhotoReceiver
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 1
 --- !u!114 &114343951578076134
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -238,9 +224,13 @@ MonoBehaviour:
   IntervalSeconds: 1
   FpsWarningLevel: 30
   LogPerformanceWarnings: 0
-  ReportingFPSReadings: 1
-  ReportingMemoryReadings: 1
+  ReportingFPSReadings: 0
+  ReportingMemoryReadings: 0
   TotalUserDistanceTravelled: 0
+  ReportingScenarioName: 1
+  ReportingDetectedTaggedObjects: 1
+  SearchableTag: DetectableObject
+  DetectionRadius: 10
 --- !u!114 &114198742058157012
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -302,3 +292,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   audioSource: {fileID: 0}
   voice: 0
+--- !u!114 &2071482945
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1227192223097436}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68ee887501e8b4c489b38a903a9330b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SearchableTag: DetectableObject
+  DetectionRadius: 10
+  TimerInSeconds: 1

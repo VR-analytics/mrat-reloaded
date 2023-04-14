@@ -15,8 +15,7 @@ namespace MRAT
 	    public bool LogPerformanceWarnings = true;
         public bool ReportingFPSReadings = true;
         public bool ReportingMemoryReadings = true;
-
-		[HideInInspector]
+        [HideInInspector]
         public float TotalUserDistanceTravelled;
 
         private Vector3 _lastUserPosition = Vector3.zero;
@@ -26,11 +25,66 @@ namespace MRAT
 	    private readonly List<float> _fpsReadings = new List<float>(80);
 	    private readonly List<long> _memoryReadings = new List<long>(80);
 
-		private void Start()
+        //New Extension QQ - begin
+        public bool ReportingScenarioName = false;
+        public bool ReportingDetectedTaggedObjects = false;
+        [Tooltip("Searchable Detection Tag")]
+        public string SearchableTag = "DetectableObject";
+        [Tooltip("Detection Radius")]
+        public float DetectionRadius = 10;
+
+        private static GameObject PlayerObject;
+        private static ScenarioController ScenarioControllerComponent;
+        private List<string> _detectedTaggedObjects = new List<string>(80);
+        private string _currentScenario="";
+        void Awake()
+        {
+            PlayerObject = GameObject.FindGameObjectWithTag("MainCamera");
+            GameObject ScenarioControllerObj = GameObject.FindGameObjectWithTag("ScenarioController");
+            if (ScenarioControllerObj != null)
+                ScenarioControllerComponent = ScenarioControllerObj.GetComponent<ScenarioController>();
+        }
+
+        private List<string> detectTaggedObjects()
+        {
+            List<string> _detectedTaggedObjects = new List<string>(80);
+            Collider[] hitColliders = Physics.OverlapSphere(PlayerObject.transform.position, DetectionRadius);
+            int i = 0;
+            while (i < hitColliders.Length)
+            {
+                if (hitColliders[i].tag == SearchableTag)
+                {
+                    if (_detectedTaggedObjects.Count < 80)
+                        _detectedTaggedObjects.Add(hitColliders[i].gameObject.name);
+                }
+                i++;
+            }
+            return _detectedTaggedObjects;
+        }
+        //New Extension QQ - end
+
+        private void Start()
 	    {
 		    _commManager = MratHelpers.GetMratCommunicationManager();
 
-			InvokeRepeating(nameof(ReportStatusUpdate), 1.0f, IntervalSeconds);
+            if(ReportingDetectedTaggedObjects)
+            {
+                GameObject []taggedobjects= GameObject.FindGameObjectsWithTag(SearchableTag);
+                if(taggedobjects!=null && taggedobjects.Length>0)
+                {
+                    for(int i=0;i<taggedobjects.Length;i++)
+                    {
+                        if(!taggedobjects[i].TryGetComponent<Collider>(out Collider x))
+                        {
+                            taggedobjects[i].AddComponent<MeshCollider>();
+                        }
+                    }
+                }
+            }
+
+            InvokeRepeating(nameof(ReportStatusUpdate), 1.0f, IntervalSeconds);
+
+
         }
 
         private void Update()
@@ -42,9 +96,13 @@ namespace MRAT
 
 	        _fpsReadings.Add(1.0f / Time.deltaTime);
 	        _memoryReadings.Add(System.GC.GetTotalMemory(false));
-		}
 
-		public void ReportStatusUpdate()
+            if (ScenarioControllerComponent != null)
+                _currentScenario = ScenarioControllerComponent.GetCurrentScenarioName();
+
+        }
+
+        public void ReportStatusUpdate()
 		{
 			var e = new MratEventStatusUpdate();
 
@@ -54,12 +112,24 @@ namespace MRAT
             if(ReportingMemoryReadings)
     	        e.AddMemoryReadings(_memoryReadings);
 
-	        _fpsReadings.Clear();
+            //New Extension QQ - begin
+            if(ReportingScenarioName)
+            {
+                    e.CurrentScenario = _currentScenario;
+            }
+            if (ReportingDetectedTaggedObjects)
+            {
+                
+                e.AddDetectedTaggedObjects(detectTaggedObjects());
+            }
+            
+            //New Extension QQ - end
+            
+            _fpsReadings.Clear();
 			_memoryReadings.Clear();
-
 			_commManager.LogMratEvent(e);
-
 			if (LogPerformanceWarnings && e.FpsWarningFlag) _commManager.LogMratEvent(e.CreatePerformanceWarningEvent());
 		}
+
     }
 }
